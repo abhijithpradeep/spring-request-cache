@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.abhijithpradeep</groupId>
-    <artifactId>request-cache</artifactId>
+    <artifactId>spring-request-cache</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
     <dependencies>
