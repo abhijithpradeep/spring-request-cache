@@ -1,4 +1,4 @@
-package com.github.abhijithpradeep.requestCache.cache;
+package com.github.abhijithpradeep.requestCache.config;
 
 import org.springframework.cache.Cache;
 

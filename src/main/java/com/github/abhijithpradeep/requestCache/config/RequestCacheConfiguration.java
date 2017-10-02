@@ -1,8 +1,8 @@
 package com.github.abhijithpradeep.requestCache.config;
 
-import com.github.abhijithpradeep.requestCache.advisor.RequestCacheAdvisor;
-import com.github.abhijithpradeep.requestCache.advisor.RequestCacheInterceptor;
-import com.github.abhijithpradeep.requestCache.advisor.RequestCachePointcut;
+import com.github.abhijithpradeep.requestCache.interceptor.RequestCacheAdvisor;
+import com.github.abhijithpradeep.requestCache.interceptor.RequestCacheableInterceptor;
+import com.github.abhijithpradeep.requestCache.interceptor.RequestInterceptor;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,19 +16,23 @@ public class RequestCacheConfiguration {
     @Bean
     public RequestCacheAdvisor requestCacheAdvisor(){
         RequestCacheAdvisor requestCacheAdvisor = new RequestCacheAdvisor();
-        requestCacheAdvisor.setAdvice(requestCacheInterceptor());
-        requestCacheAdvisor.setPointcut(requestCachePointcut());
+        requestCacheAdvisor.setRequestCacheableInterceptor(requestCacheableInterceptor());
+        requestCacheAdvisor.setRequestInterceptor(requestInterceptor());
         return requestCacheAdvisor;
     }
 
     @Bean
-    public RequestCacheInterceptor requestCacheInterceptor(){
-        return new RequestCacheInterceptor();
+    public RequestInterceptor requestInterceptor(){
+        RequestInterceptor requestInterceptor = new RequestInterceptor();
+        requestInterceptor.setRequestCacheConfigurationFactory(requestCacheConfigurationFactory());
+        return requestInterceptor;
     }
 
     @Bean
-    public RequestCachePointcut requestCachePointcut(){
-        return new RequestCachePointcut();
+    public RequestCacheableInterceptor requestCacheableInterceptor(){
+        RequestCacheableInterceptor requestCacheableInterceptor = new RequestCacheableInterceptor();
+        requestCacheableInterceptor.setRequestCacheConfigurationFactory(requestCacheConfigurationFactory());
+        return requestCacheableInterceptor;
     }
 
     @Bean
@@ -36,6 +40,11 @@ public class RequestCacheConfiguration {
         DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator = new DefaultAdvisorAutoProxyCreator();
         defaultAdvisorAutoProxyCreator.setProxyTargetClass(true);
         return defaultAdvisorAutoProxyCreator;
+    }
+
+    @Bean(initMethod = "init")
+    public RequestCacheConfigurationFactory requestCacheConfigurationFactory(){
+        return new RequestCacheConfigurationFactory();
     }
 
 }

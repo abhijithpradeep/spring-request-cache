@@ -1,5 +1,6 @@
-package com.github.abhijithpradeep.requestCache.cache;
+package com.github.abhijithpradeep.requestCache.config;
 
+import com.github.abhijithpradeep.requestCache.config.IRequestCacheManager;
 import com.github.abhijithpradeep.requestCache.config.Request;
 import org.springframework.cache.Cache;
 import org.springframework.cache.concurrent.ConcurrentMapCache;

@@ -1,4 +1,6 @@
-package com.github.abhijithpradeep.requestCache.annotations;
+package com.github.abhijithpradeep.requestCache.annotation;
+
+import org.springframework.core.annotation.AliasFor;
 
 import java.lang.annotation.*;
 
@@ -10,6 +12,10 @@ import java.lang.annotation.*;
 @Inherited
 public @interface Request {
 
+    @AliasFor("name")
     String value() default "";
+
+    @AliasFor("value")
+    String name() default "";
 
 }
