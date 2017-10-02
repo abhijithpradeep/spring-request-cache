@@ -25,7 +25,7 @@ public class ThreadlocalCacheManager implements IRequestCacheManager {
     }
 
     public void startRequest(String name) {
-        threadLocalMap.set(new HashMap<>());
+        threadLocalMap.set(new HashMap<String, ConcurrentMapCache>());
         threadLocalRequest.set(new Request());
         threadLocalRequest.get().setRequestName(name);
     }
